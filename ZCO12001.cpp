@@ -1,45 +1,54 @@
-// https://www.codechef.com/ZCOPRAC/problems/ZCO12001
+#include<bits/stdc++.h>
+using namespace std;
 
-#include <iostream>
+vector<int> v;
+stack<int> s;
+int mx;
+
+void print_st(stack<int> s) {
+    stack<int> v = s;
+    cout << "-----" << endl;
+    while (!v.empty()) {
+        cout << v.top() << " ";
+        v.pop();
+    }
+    cout << endl;
+}
 
 int main() {
     int n;
-    std::cin >> n;
-
-    int max_depth = 0;
-    int first_deepest_ind = 0;
-    int longest_sequence_length = 0;
-    int longest_sequence_begin_ind = 0;
-    int current_sequence_length = 0;
-    int current_sequence_begin_ind = 0;
-
-    int current_depth = 0;
-
-    for (int ind=1; ind<=n; ind++) {
-        int current_parenthesis;
-        int diff_depth;
-        std::cin >> current_parenthesis;
-        diff_depth = (current_parenthesis == 1) ? 1 : -1;
-        current_depth += diff_depth;
-
-        if (current_depth > max_depth) {
-            max_depth = current_depth;
-            first_deepest_ind = ind;
-        }
-
-        if (current_depth==1 && diff_depth==1) {
-            current_sequence_length = 0;
-            current_sequence_begin_ind = ind;
-        }
-        current_sequence_length += 1;
-        if (current_sequence_length > longest_sequence_length) {
-            longest_sequence_length = current_sequence_length;
-            longest_sequence_begin_ind = current_sequence_begin_ind;
+    int start=0, st=0;
+    int nsend=0, mxnst = 0;
+    int cnt=0;
+    cin >> n;
+    int len=0;
+    for (int i = 0; i < n; i++) {
+        int t;
+        cin >> t;
+        if (t == 1) {
+            if (s.empty()) {
+                st = i;
+            }
+            s.push(t);
+            cnt ++;
+            len ++;
+            if ((int)s.size() > mxnst) {
+                mxnst = (int)s.size();
+                nsend = i;
+            }
+        } else {
+            s.pop();
+            cnt--;
+            len ++;
+            if (s.empty()) {
+                if (len > mx) {
+                    mx = len;
+                    start = st;
+                }
+                len = 0;
+            }
         }
     }
-
-    std::cout << max_depth << " " 
-              << first_deepest_ind << " "
-              << longest_sequence_length << " " 
-              << longest_sequence_begin_ind << std::endl;
+    printf("%d %d %d %d\n", mxnst, nsend+1, mx, start+1);
+    return 0;
 }
