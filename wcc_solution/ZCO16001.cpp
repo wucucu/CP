@@ -3,25 +3,27 @@
 #include <iostream>
 #include <algorithm>
 
-int solve(int *a, int *b, int N, int k0, int k) {
-
-    if (*(a+N-1) <= *b) {
-        return *(a+N-1) + *(b + N - 1);
+int solve(int *a_ori, int *b_ori, int N, int k) {
+    int a[N], b[N];
+    for (int i=0; i<N; i++) {
+        a[i] = a_ori[i];
+        b[i] = b_ori[i];
     }
-
-    if (k0 == k)
-        return *(a + N - k - 1) + std::max(*(a + N - 1), *(b + N - 1)); 
-
-    if (*(a + N - k - 1) >= *(b + k - 1)) {
-        return *(a + N - k - 1) + std::max(*(a + N - 1), *(b + N - 1));
-    } else {
-        int mid_k = (k0+k) / 2;
-        if (*(a + N - mid_k - 1) >= *(b + mid_k - 1)) {
-            return solve(a, b, N, mid_k, k - 1);
+    int min_skew = *(a+N-1) + *(b+N-1);
+    while (k--) {
+        std::iter_swap(a, b+N-1);
+        std::sort(a, a+N);
+        std::sort(b, b+N);
+        int skew = *(a+N-1) + *(b+N-1);
+        if (skew > min_skew) {
+            break;
         } else {
-            return solve(a, b, N, k0, mid_k - 1);
+            min_skew = skew;
         }
     }
+
+    return min_skew;
+
 }
 
 
@@ -45,7 +47,7 @@ int main() {
     std::sort(a, a+N);
     std::sort(b, b+N);
 
-    std::cout << std::min(solve(a, b, N, 1, K), solve(b, a, N, 1, K)) << std::endl;
+    std::cout << std::min(solve(a, b, N, K), solve(b, a, N, K)) << std::endl;
 
     return 0;
 
