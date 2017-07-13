@@ -1,3 +1,4 @@
+*~
 *.aux
 *.glo
 *.idx
@@ -9,6 +10,7 @@
 *.alg
 *.bbl
 *.blg
+*.dSYM
 *.dvi
 *.glg
 *.gls
