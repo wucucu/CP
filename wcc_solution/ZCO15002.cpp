@@ -46,7 +46,7 @@ int main() {
         } else {
             cnt += (N - fast);
         }
-        // if (fast_pointer == -1) {
+        // if (fast_pointer == a+N) {
         //     break;
         // } else {
         //     cnt += (a + N - fast_pointer);

@@ -16,7 +16,7 @@ int solve(int *a_ori, int *b_ori, int N, int k) {
         std::sort(b, b+N);
         int skew = *(a+N-1) + *(b+N-1);
         if (skew > min_skew) {
-            break;
+            continue;
         } else {
             min_skew = skew;
         }
@@ -34,8 +34,8 @@ int main() {
 
     K = std::min(N/2, K);
 
-    int a[N];
-    int b[N];
+    int a[100000];
+    int b[100000];
 
     for (int i=0; i<N; i++) {
         std::cin >> a[i];
