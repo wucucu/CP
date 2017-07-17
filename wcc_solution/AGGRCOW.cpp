@@ -4,11 +4,10 @@
 #include <algorithm>
 
 int try_solution(int *a, int n, int c, int interval) {
-    bool valid =  true;
     int left_c = c;
     int left_n = n;
 
-    if (c==0 && c>n) return false;
+    if (c==0 && c>n) return 0;
 
     int curr_ind = 0;
     left_c--;
@@ -33,16 +32,20 @@ int try_solution(int *a, int n, int c, int interval) {
 
 // solution in [l, r]
 int find_solution(int *a, int n, int c, long l, long r) {
-    if (l > r) return 0;
-    if (l == r) return try_solution(a, n, c, l) ? l : 0;
-    int temp_solution = (l + r)/2;
-    // std::cout << l << " " << temp_solution << " " << r << std::endl;
-    int is_temp_solution_validated = try_solution(a, n, c, temp_solution);
-    if (is_temp_solution_validated) {
-        return std::max(temp_solution, find_solution(a, n, c, temp_solution+1, r));
-    } else {
-        return find_solution(a, n, c, l, temp_solution-1);
+    int temp_l = l;
+    int temp_r = r;
+
+    while (temp_l < temp_r) {
+        int temp_solution = (temp_l + temp_r)/2;
+        int is_temp_solution_validated = try_solution(a, n, c, temp_solution); 
+        if (is_temp_solution_validated) {
+            temp_l = temp_solution;
+        } else {
+            temp_r = temp_solution - 1;
+        }
     }
+
+    return temp_l;
 }
 
 int main() {
