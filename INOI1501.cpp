@@ -42,11 +42,13 @@ int main() {
     for (int j = 2; j <= n; j++) {
         v = max(v, a[j]+s[j-1]+f[j-2]);
     }
+    print(f);
 
     b.push_back(a[n]-s[n]);
     for (int i = n-1; i > 0; i--) {
         b.push_back(max(*(--b.end()), a[i]-s[i]));
     }
+    print(b);
     
     for (int j = 1; j < n-1; j++) {
         w = max(w, a[j]+s[j-1]+s[n]+b[n-j-1]);
