@@ -4,10 +4,12 @@
 #include <algorithm>
 
 int try_solution(int *a, int n, int c, int interval) {
+    if (c==0 && c>n) return 0;
+    if (n<=1 || c==1) return (interval==0);
+
     int left_c = c;
     int left_n = n;
 
-    if (c==0 && c>n) return 0;
 
     int curr_ind = 0;
     left_c--;
@@ -36,7 +38,7 @@ int find_solution(int *a, int n, int c, long l, long r) {
     int temp_r = r;
 
     while (temp_l < temp_r) {
-        int temp_solution = (temp_l + temp_r)/2;
+        int temp_solution = (temp_l + temp_r + 1)/2;
         int is_temp_solution_validated = try_solution(a, n, c, temp_solution); 
         if (is_temp_solution_validated) {
             temp_l = temp_solution;
@@ -64,6 +66,6 @@ int main() {
 
         std::sort(a, a+n);
 
-        std::cout << find_solution(a, n, c, 0, 1000000000) << std::endl;
+        std::cout << find_solution(a, n, c, 0, a[n-1]-a[0]) << std::endl;
     }
 }
