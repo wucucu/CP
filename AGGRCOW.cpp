@@ -40,7 +40,7 @@ int main() {
             cin >> a[i];
         }
         sort(a, a+n);
-        cout << binary_search() << endl;;
+        cout << binary_search() << endl;
     }
     return 0;
 }
