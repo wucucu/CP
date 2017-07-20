@@ -1,7 +1,7 @@
 // https://www.codechef.com/IOIPRAC/problems/INOI1301
 
 #include <iostream>
-#include <algorithm>
+// #include <algorithm>
 
 #define SMALLEST_NUM -2147483648
 
