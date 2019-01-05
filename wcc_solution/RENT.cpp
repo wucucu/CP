@@ -15,6 +15,7 @@ typedef std::tuple<int, int, int, int> mytuple;
 bool mycompare (const mytuple &lhs, const mytuple &rhs){
   return (std::get<0>(lhs) < std::get<0>(rhs)) || (std::get<0>(lhs) == std::get<0>(rhs) && std::get<1>(lhs) < std::get<1>(rhs));
 }
+
 int main() {
     int tt;
     std::cin >> tt;
