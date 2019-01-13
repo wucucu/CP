@@ -3,10 +3,10 @@
 #include <iostream>
 #include <algorithm>
 #include <tuple>
-#include <vector>
 #include <queue>
 
 #define ll long long
+
 
 typedef std::tuple<ll, ll, ll> contract_tuple;
 
@@ -15,29 +15,30 @@ bool deadline_compare (const contract_tuple &lhs, const contract_tuple &rhs) {
 }
 
 int main() {
-    ll tt;
+    int tt;
     std::cin >> tt;
 
     ll a, b, d;
     ll n;
 
-    std::vector<contract_tuple> v;
+    contract_tuple contracts[100000];
 
     while (tt--) {
         std::cin >> n;
 
-        while (n--) {
-           std::cin >> a >> b >> d;
-            v.push_back(std::make_tuple(a, b, d));
+        for (ll i = 0; i < n; i++) {
+            std::cin >> a >> b >> d;
+            contracts[i] = (std::make_tuple(a, b, d));
         }
 
-        std::sort(v.begin(), v.end(), deadline_compare);
+        std::sort(contracts, contracts + n, deadline_compare);
 
-        ll total_time = 0;
-        double total_money = 0;
+        long double total_time = 0;
+        long double total_money = 0;
         std::priority_queue<std::pair<ll, ll>> pq;
 
-        for (auto ct: v) {
+        for (ll i = 0; i < n; i++) {
+            contract_tuple ct = contracts[i];
             a = std::get<0>(ct);
             b = std::get<1>(ct);
             d = std::get<2>(ct);
@@ -49,8 +50,8 @@ int main() {
                 auto temp_pair = pq.top();
                 pq.pop();
 
-                ll temp_a = std::get<0>(temp_pair);
-                ll temp_b = std::get<1>(temp_pair);
+                int temp_a = std::get<0>(temp_pair);
+                int temp_b = std::get<1>(temp_pair);
 
                 if (total_time - temp_b < d) {
                     temp_b -= d;
@@ -65,7 +66,7 @@ int main() {
                 }
             }
         }
-        printf("%.2f", total_money);
+        printf("%.2Lf", total_money);
         std::cout << std::endl;
     }
     return 0;
